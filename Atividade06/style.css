@@ -1,0 +1,367 @@
+/* A mesma classe de estado serve para as células e para as teclas. */
+:root {
+  color-scheme: dark;
+  --fundo: #151617;
+  --painel: #202123;
+  --texto: #fafafa;
+  --borda: #65666a;
+  --correta: #3c7f50;
+  --presente: #c9ad45;
+  --ausente: #3a3a3c;
+  --selecao: #80b9ef;
+  --celula: 3.65rem;
+  --intervalo: 0.45rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.jogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.65rem;
+  width: 100%;
+  max-width: 28.75rem;
+  padding: 1.4rem 1.35rem 1rem;
+  border: 1px solid #303235;
+  border-radius: 0.85rem;
+  background: var(--painel);
+  box-shadow: 0 1rem 3rem #00000030;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.idioma {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  min-height: 2rem;
+  color: #b5b8bd;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.ajuda {
+  position: relative;
+}
+
+.ajuda summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #727479;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.ajuda summary::-webkit-details-marker {
+  display: none;
+}
+
+.ajuda summary:hover {
+  background-color: #383b40;
+  border-color: #c4c9d1;
+}
+
+.painel-ajuda {
+  position: absolute;
+  top: 2.8rem;
+  left: 0;
+  z-index: 2;
+  width: min(22rem, calc(100vw - 5rem));
+  padding: 1.1rem;
+  border: 1px solid #61646b;
+  border-radius: 0.6rem;
+  background: #292c30;
+  box-shadow: 0 0.6rem 2rem #00000080;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.painel-ajuda h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.painel-ajuda p {
+  margin: 0.6rem 0;
+}
+
+.painel-ajuda ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.painel-ajuda li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.amostra {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 0.25rem;
+  font-weight: 700;
+}
+
+.observacao {
+  color: #d1d5dc;
+  font-size: 0.8rem;
+}
+
+.tabuleiro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--intervalo);
+}
+
+.linha {
+  display: flex;
+  gap: var(--intervalo);
+}
+
+.celula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--celula);
+  height: var(--celula);
+  border: 1.5px solid var(--borda);
+  border-radius: 0.35rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.correta {
+  background-color: var(--correta);
+  border-color: var(--correta);
+  color: #fff;
+}
+
+.posicao-errada {
+  background-color: var(--presente);
+  border-color: var(--presente);
+  color: #181916;
+}
+
+.incorreta {
+  background-color: var(--ausente);
+  border-color: #58595d;
+  color: #fff;
+}
+
+.selecionada {
+  border: 2px solid var(--selecao);
+  box-shadow: 0 0 0 2px #80b9ef22;
+}
+
+.teclado {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.linha-teclado {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.linha-intermediaria {
+  padding-inline: 1.1rem;
+}
+
+.tecla {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.9rem;
+  padding: 0.4rem 0;
+  border: 1px solid #5a5c60;
+  border-radius: 0.35rem;
+  background-color: #4b4d51;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.tecla.correta {
+  background-color: var(--correta);
+  border-color: var(--correta);
+}
+
+.tecla.posicao-errada {
+  background-color: var(--presente);
+  border-color: var(--presente);
+  color: #181916;
+}
+
+.tecla.incorreta {
+  background-color: var(--ausente);
+  border-color: #44464a;
+  color: #d4d4d5;
+}
+
+.tecla-especial {
+  flex: 1.6;
+  font-size: 0.64rem;
+}
+
+.apagar {
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.tecla:hover {
+  background-color: #62666d;
+  border-color: #c3c9d1;
+  transform: translateY(-2px);
+}
+
+.tecla:active {
+  transform: translateY(0);
+}
+
+.tecla:focus-visible,
+.ajuda summary:focus-visible {
+  outline: 2px solid var(--selecao);
+  outline-offset: 3px;
+}
+
+.aviso-interface {
+  margin: -0.7rem 0 0;
+  color: #aeb1b7;
+  font-size: 0.67rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 400px) {
+  :root {
+    --celula: 14vw;
+    --intervalo: 0.35rem;
+  }
+
+  body {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .jogo {
+    gap: 1.4rem;
+    padding: 1.1rem 0.75rem 0.85rem;
+  }
+
+  .celula {
+    font-size: 1.65rem;
+  }
+
+  .tecla {
+    min-height: 2.8rem;
+    font-size: 0.83rem;
+  }
+
+  .tecla-especial {
+    font-size: 0.55rem;
+  }
+
+  .apagar {
+    font-size: 1.2rem;
+  }
+
+  .linha-intermediaria {
+    padding-inline: 0.75rem;
+  }
+}
+
+@media (max-height: 760px) and (min-width: 401px) {
+  :root {
+    --celula: 3.1rem;
+  }
+
+  .jogo {
+    gap: 1.2rem;
+    padding-block: 1.1rem;
+  }
+}
+
+@media (max-height: 650px) {
+  :root {
+    --celula: min(12vw, 2.65rem);
+    --intervalo: 0.3rem;
+  }
+
+  .jogo {
+    gap: 1rem;
+    padding-block: 0.8rem;
+  }
+
+  .celula {
+    font-size: 1.4rem;
+  }
+
+  .tecla {
+    min-height: 2.35rem;
+  }
+
+  .aviso-interface {
+    margin-top: -0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tecla,
+  .ajuda summary {
+    transition: none;
+  }
+
+  .tecla:hover {
+    transform: none;
+  }
+}
